@@ -41,6 +41,7 @@ public class Address {
      */
     public static boolean isValidAddress(String test1, String[] test2) {
         return test1.matches(ADDRESS_VALIDATION_REGEX) &&
+                test2.length == 4 &&
                 Block.isValid(test2[0]) &&
                 Street.isValid(test2[1]) &&
                 Unit.isValid(test2[2]) &&

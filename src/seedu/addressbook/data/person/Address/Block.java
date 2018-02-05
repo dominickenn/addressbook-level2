@@ -9,7 +9,7 @@ public class Block {
     }
 
     public static boolean isValid(String value){
-        String regex = "[0-9]+";
+        String regex = "[a-zA-Z0-9]+";
         return value.matches(regex);
     }
 
