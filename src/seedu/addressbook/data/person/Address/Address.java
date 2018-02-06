@@ -1,12 +1,13 @@
 package seedu.addressbook.data.person.Address;
 
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Contact;
 
 /**
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String, String[])}
  */
-public class Address {
+public class Address extends Contact {
 
     public static final String EXAMPLE = "123, Clementi Ave 3, #12-34, 231534";
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses must contain a Block, Street, Unit, and Postal Code in this order";
@@ -16,7 +17,6 @@ public class Address {
     private final Street street;
     private final Unit unit;
     private final PostalCode postalCode;
-    private boolean isPrivate;
 
     /**
      * Validates given address.
@@ -26,10 +26,11 @@ public class Address {
     public Address(String address, boolean isPrivate) throws IllegalValueException {
         String trimmedAddress = address.trim();
         String[] splitAddress = address.split(", ");
-        this.isPrivate = isPrivate;
+        setPrivacy(isPrivate);
         if (!isValidAddress(trimmedAddress, splitAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
+        this.value = trimmedAddress;
         this.block = new Block(splitAddress[0]);
         this.street = new Street(splitAddress[1]);
         this.unit = new Unit(splitAddress[2]);
@@ -50,10 +51,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return block.toString() + ", "
-                + street.toString() + ", "
-                + unit.toString() + ", "
-                + postalCode.toString();
+        return value;
     }
 
     @Override
@@ -64,10 +62,6 @@ public class Address {
                 && this.street.equals(((Address) other).getStreet())
                 && this.unit.equals(((Address) other).getUnit())
                 && this.postalCode.equals(((Address) other).getPostalCode()))); // state check
-    }
-
-    public boolean isPrivate() {
-        return isPrivate;
     }
 
     public Block getBlock(){return block;}
