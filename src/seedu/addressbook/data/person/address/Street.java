@@ -1,20 +1,19 @@
-package seedu.addressbook.data.person.Address;
+package seedu.addressbook.data.person.address;
 
-public class Block {
-
+public class Street {
     String value;
 
-    public Block(String block) {
-        value = block;
+    public Street(String street) {
+        value = street;
     }
 
     public static boolean isValid(String value){
-        String regex = "[a-zA-Z0-9]+";
+        String regex = "[a-zA-Z0-9 ]+";
         return value.matches(regex);
     }
 
     public boolean equals(Object other){
-        return value.equals(((Block) other).toString());
+        return value.equals(((Street) other).toString());
     }
 
     @Override
