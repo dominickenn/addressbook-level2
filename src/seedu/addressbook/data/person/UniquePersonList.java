@@ -1,11 +1,6 @@
 package seedu.addressbook.data.person;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
@@ -19,6 +14,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  * @see Utils#elementsAreUnique(Collection)
  */
 public class UniquePersonList implements Iterable<Person> {
+
+    public static final boolean SORTLEXIOGRAPHIC = true;
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -70,6 +67,22 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public UniquePersonList(UniquePersonList source) {
         internalList.addAll(source.internalList);
+    }
+
+    /**
+     * Constructs a shallow copy of the list sorted lexiographically
+     */
+    public UniquePersonList(UniquePersonList source, boolean SORTLEXIOGRAPHIC) {
+        List<Person> toSort = source.internalList;
+        if(SORTLEXIOGRAPHIC){
+            Collections.sort(toSort, new Comparator<Person>() {
+                @Override
+                public int compare(Person o1, Person o2) {
+                    return o1.getName().fullName.compareTo(o2.getName().fullName);
+                }
+            });
+        }
+        internalList.addAll(toSort);
     }
 
     /**

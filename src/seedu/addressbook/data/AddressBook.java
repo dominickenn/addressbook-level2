@@ -115,6 +115,13 @@ public class AddressBook {
     }
 
     /**
+     * Returns a new UniquePersonList of all persons in the address book in lexiographic order at the time of the call.
+     */
+    public UniquePersonList getAllPersonsLexiographically() {
+        return new UniquePersonList(allPersons, UniquePersonList.SORTLEXIOGRAPHIC);
+    }
+
+    /**
      * Returns a new UniqueTagList of all tags in the address book at the time of the call.
      */
     public UniqueTagList getAllTags() {
